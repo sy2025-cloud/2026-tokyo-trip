@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>東京_行程_0821-0827</title>
+<style>
+:root{
+  --bg:#eceded; --ink:#25262a; --muted:#6c625a; --accent:#ecc632;
+  --card:#f6f6f5; --line:#d9d9d6; --accent-soft:#f7e9a8;
+}
+*{box-sizing:border-box}
+html{ -webkit-text-size-adjust:100% }
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Noto Sans TC",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.7; font-size:16px;
+}
+.container{ max-width:1100px; margin:0 auto; padding:48px 32px 96px; }
+h1,h2,h3,h4{ line-height:1.3; font-weight:700; }
+h1{ font-size:2rem; margin:0 0 .6em; padding-bottom:.4em; border-bottom:3px solid var(--accent); }
+h2{ font-size:1.5rem; margin:2em 0 .6em; }
+h2::before{ content:""; display:inline-block; width:.55em; height:.55em; margin-right:.5em;
+  background:var(--accent); border-radius:2px; vertical-align:middle; }
+h3{ font-size:1.2rem; margin:1.6em 0 .5em; color:var(--muted); }
+a{ color:#9a7f00; text-decoration:none; border-bottom:1px solid var(--accent); }
+a:hover{ background:var(--accent-soft); }
+hr{ border:0; border-top:1px solid var(--line); margin:2.5em 0; }
+strong{ color:var(--ink); }
+ul,ol{ padding-left:1.4em; }
+li{ margin:.3em 0; }
+blockquote{ margin:1.2em 0; padding:.6em 1.2em; border-left:4px solid var(--accent);
+  background:var(--card); color:var(--muted); border-radius:0 6px 6px 0; }
+
+/* Obsidian callout（> [!note]-/+ 標題）→ 可摺疊區塊，摺疊狀態沿用 .md 裡的 -/+ */
+details.callout{ margin:1.2em 0; border:1px solid var(--line); border-radius:8px;
+  background:var(--card); overflow:hidden; }
+details.callout summary{ cursor:pointer; padding:.7em 1.1em; font-weight:600;
+  color:var(--muted); list-style:none; }
+details.callout summary::-webkit-details-marker{ display:none; }
+details.callout summary::before{ content:"▸ "; color:var(--accent); }
+details.callout[open] summary::before{ content:"▾ "; }
+details.callout .callout-body{ padding:0 1.1em 1em; border-top:1px solid var(--line); }
+details.callout .callout-body > *:first-child{ margin-top:1em; }
+code{ font-family:"SF Mono",Menlo,Consolas,monospace; font-size:.9em;
+  background:var(--card); padding:.15em .4em; border-radius:4px; border:1px solid var(--line); }
+pre{ background:var(--ink); color:#eceded; padding:1em 1.2em; border-radius:8px; overflow-x:auto; }
+pre code{ background:none; border:0; color:inherit; padding:0; }
+
+/* 表格：寬表用橫向捲動，避免 Obsidian 那種硬擠 */
+.table-wrap{ overflow-x:auto; margin:1.4em 0; border:1px solid var(--line);
+  border-radius:10px; box-shadow:0 1px 3px rgba(37,38,42,.06); background:#fff; }
+table{ border-collapse:collapse; width:100%; font-size:.92rem; }
+thead th{ position:sticky; top:0; background:var(--ink); color:#eceded;
+  text-align:left; font-weight:600; padding:12px 14px; white-space:nowrap; }
+tbody td{ padding:11px 14px; border-top:1px solid var(--line); vertical-align:top;
+  min-width:90px; }
+tbody tr:nth-child(even){ background:#f4f4f3; }
+tbody tr:hover{ background:var(--accent-soft); }
+/* 凍結前兩欄（編號 + 名稱），左右捲動時固定 */
+/* 第一欄寬度隨內容自適應：房號只佔幾十 px，時間區間（12:30-14:58）不折行 */
+td:first-child,th:first-child{ position:sticky; left:0; z-index:1;
+  min-width:48px; white-space:nowrap; }
+/* left 由頁尾 JS 依第一欄實際寬度設定，這裡只給 fallback */
+td:nth-child(2),th:nth-child(2){ position:sticky; left:48px; z-index:1;
+  min-width:180px; max-width:260px; white-space:normal; }
+tbody td:first-child{ background:inherit; font-weight:600; color:var(--muted); }
+tbody td:nth-child(2){ background:inherit; font-weight:600; }
+thead th:first-child,thead th:nth-child(2){ z-index:2; }
+/* 凍結欄右側加分隔陰影，視覺上區隔捲動區 */
+td:nth-child(2),th:nth-child(2){ box-shadow:2px 0 4px -2px rgba(37,38,42,.15); }
+
+/* 地點切換 header（由 .md 頂端 <!-- switcher: ... --> 宣告觸發） */
+.switcher{ display:flex; gap:8px; margin:0 0 28px; flex-wrap:wrap; }
+.switcher a{ border:1px solid var(--line); padding:8px 18px; border-radius:999px;
+  font-size:.95rem; font-weight:600; color:var(--muted); background:#fff;
+  text-decoration:none; }
+.switcher a:hover{ background:var(--accent-soft); }
+.switcher a.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+
+/* 狀態彩色標籤（表格內狀態詞自動上色） */
+.st{ display:inline-block; padding:2px 10px; border-radius:999px;
+  font-size:.82rem; font-weight:600; white-space:nowrap; }
+.st-todo{ background:#e7e7e4; color:#6c625a; }
+.st-asked{ background:#dbeafe; color:#1e5aa8; }
+.st-quoted{ background:#d8f0dd; color:#1f7a3a; }
+.st-out{ background:#ececec; color:#a8a8a8; text-decoration:line-through; }
+.st-backup{ background:#f7e9a8; color:#7a5e00; }
+
+/* 錨點跳轉不被遮住 + 平滑捲動 + 長字防溢出 */
+html{ scroll-behavior:smooth; }
+h1,h2,h3,h4{ scroll-margin-top:16px; }
+body{ overflow-wrap:break-word; word-break:break-word; }
+code{ overflow-wrap:break-word; word-break:break-word; }
+.table-wrap{ -webkit-overflow-scrolling:touch; }
+pre{ -webkit-overflow-scrolling:touch; }
+
+/* 回到頂部懸浮按鈕 */
+#to-top{ position:fixed; right:24px; bottom:24px; width:44px; height:44px; border:none;
+  border-radius:50%; background:var(--ink); color:var(--accent); font-size:20px; line-height:44px;
+  text-align:center; cursor:pointer; box-shadow:0 2px 8px rgba(37,38,42,.25);
+  opacity:0; visibility:hidden; transition:opacity .2s, visibility .2s; z-index:50; padding:0; }
+#to-top.show{ opacity:1; visibility:visible; }
+#to-top:hover{ background:#000; }
+
+/* RWD：手機斷點（縮邊距/字級，取消凍結欄以保留可視寬度） */
+@media (max-width:640px){
+  body{ font-size:15px; line-height:1.65; }
+  .container{ padding:28px 18px 64px; }
+  h1{ font-size:1.6rem; }
+  h2{ font-size:1.3rem; }
+  h3{ font-size:1.1rem; }
+  pre{ padding:.85em 1em; font-size:.85rem; }
+  table{ font-size:.85rem; }
+  thead th{ padding:9px 11px; }
+  tbody td{ padding:9px 11px; min-width:76px; }
+  td:first-child,th:first-child,
+  td:nth-child(2),th:nth-child(2){ position:static; width:auto; min-width:76px; max-width:none; box-shadow:none; }
+  #to-top{ right:16px; bottom:16px; }
+  .switcher a,.filter-btn{ font-size:.85rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 id="東京行程821-827">東京行程（8/21-8/27）</h1>
+<details class="callout"><summary>格式與用法</summary><div class="callout-body"><p>格式規則見 <code>04_life_journey/digital_nomad/行程檔_格式規範.md</code>。</p>
+<p><strong>住宿</strong>：見 <code>accommodations/東京_住宿_2026.md</code>。</p>
+<p><strong>本檔結構</strong>：前半按日期（總覽表 → 每日時序表 → 當日決策點），後半按地點放候選池。日期與地點的對應可隨時調整，只改總覽表與跳轉連結，地點區塊不用搬。</p>
+<p><strong>候選池用法</strong>：狀態只用四個值（待安排／已安排／已完成／不去了）。SY 說「刪掉」的直接移除，標「不去了」的保留。<strong>可久坐</strong>欄用來找媽媽的休息點：✅ 有位子能坐著緩、❌ 站著吃或外帶型、— 未查。排定之後把營業時間、LO、步行分鐘數補進當天時序表的細節欄。</p>
+<p>片假名/平假名一律加羅馬拼音，例：カムイ(kamui)。</p>
+<p>候選池目前僅照 Google Doc「Tokyo_2026」原資料整理，<strong>營業時間、LO、公休日全部未查</strong>。位置欄寫「待確認」的是原資料沒寫，不填推測值。地點分區由店名歸類，原資料未明寫地點的標【歸類待確認】。</p></div></details>
+<h2 id="每日安排總覽">每日安排（總覽）</h2>
+<p>這張表是唯一的日期繫結處，改行程只改這裡。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>日期</th>
+<th>地點</th>
+<th>已定時間</th>
+<th>地點區域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#821五">8/21（五）</a></td>
+<td>銀座・東銀座</td>
+<td>無</td>
+<td>銀座・東銀座</td>
+</tr>
+<tr>
+<td><a href="#822六">8/22（六）</a></td>
+<td>南青山 → 自由之丘／中目黑 → 代官山</td>
+<td>12:00 L'AS 午餐，<strong>尚未訂位</strong></td>
+<td>表參道・南青山、自由之丘、中目黑、代官山</td>
+</tr>
+<tr>
+<td><a href="#823日">8/23（日）</a></td>
+<td>吉祥寺（暫定）＋ 銀座</td>
+<td>18:00 鮨よしかわ 銀座，尚未訂位，可移其他天</td>
+<td>吉祥寺、銀座・東銀座</td>
+</tr>
+<tr>
+<td><a href="#824一">8/24（一）</a></td>
+<td>表參道・南青山</td>
+<td>13:00 Prés de L'AS，<strong>已訂位，不能動</strong></td>
+<td>表參道・南青山</td>
+</tr>
+<tr>
+<td><a href="#825二">8/25（二）</a></td>
+<td>鎌倉 → 東京車站</td>
+<td>無</td>
+<td>鎌倉、丸之內・東京車站</td>
+</tr>
+<tr>
+<td><a href="#826三">8/26（三）</a></td>
+<td>六本木 或 待確認 → 銀座／南青山</td>
+<td>無</td>
+<td>六本木、地點待確認、銀座・東銀座、表參道・南青山</td>
+</tr>
+<tr>
+<td><a href="#827四">8/27（四）</a></td>
+<td>銀座</td>
+<td>無</td>
+<td>銀座・東銀座</td>
+</tr>
+</tbody>
+</table></div>
+<p>還沒排到任何一天的地點區域：澀谷。</p>
+<h2 id="821五">8/21（五）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>時間</th>
+<th>事項</th>
+<th>細節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>待排</td>
+<td>飯店集合</td>
+<td></td>
+</tr>
+<tr>
+<td>待排</td>
+<td>Tully's Coffee 買 Royal milk tea</td>
+<td>check in 後第一站，分店位置待確認</td>
+</tr>
+<tr>
+<td>待排</td>
+<td>晚餐</td>
+<td>二選一，見 <a href="#821-決策點晚餐">8/21 決策點：晚餐</a></td>
+</tr>
+<tr>
+<td>待排</td>
+<td>買水果、逛銀座</td>
+<td>UNIQLO、MUJI</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="821-決策點晚餐">8/21 決策點：晚餐</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>選項</th>
+<th>觸發條件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>優先</td>
+<td>鰻魚飯 備長 三越</td>
+<td><strong>媽媽想吃</strong>。17:00 開</td>
+</tr>
+<tr>
+<td>備份</td>
+<td>佐藤養助 銀座（烏龍麵）</td>
+<td>17:00 開</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="822六">8/22（六）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>時間</th>
+<th>事項</th>
+<th>細節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12:00</td>
+<td>午餐 L'AS</td>
+<td>南青山，飯店搭電車約 30 分。<strong>尚未訂位</strong></td>
+</tr>
+<tr>
+<td>待排</td>
+<td>下午去哪</td>
+<td>見 <a href="#822-決策點午餐後往哪走">8/22 決策點：午餐後往哪走</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="822-決策點午餐後往哪走">8/22 決策點：午餐後往哪走</h3>
+<p>原資料註明自由之丘離南青山半小時，有點遠，可整個 pass、專注中目黑。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>選項</th>
+<th>觸發條件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>優先</td>
+<td>中目黑 → 代官山</td>
+<td>見 <a href="#中目黑">中目黑</a>、<a href="#代官山">代官山</a></td>
+</tr>
+<tr>
+<td>備份</td>
+<td>自由之丘 → 中目黑 → 代官山</td>
+<td>時間與體力都夠才加。見 <a href="#自由之丘">自由之丘</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="823日">8/23（日）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>時間</th>
+<th>事項</th>
+<th>細節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>待排</td>
+<td>吉祥寺</td>
+<td><strong>暫定</strong>，尚未討論店家，見 <a href="#吉祥寺">吉祥寺</a></td>
+</tr>
+<tr>
+<td>18:00</td>
+<td>晚餐 鮨よしかわ 銀座</td>
+<td>飯店走 3 分。<strong>尚未訂位</strong>，也可移到其他天</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="824一">8/24（一）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>時間</th>
+<th>事項</th>
+<th>細節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13:00</td>
+<td>午餐 Prés de L'AS</td>
+<td>飯店搭電車約 30 分。<strong>已訂位，不能動</strong></td>
+</tr>
+<tr>
+<td>待排</td>
+<td>貓街（Cat Street）、南青山</td>
+<td>見 <a href="#表參道南青山">表參道・南青山</a></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="825二">8/25（二）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>時間</th>
+<th>事項</th>
+<th>細節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>待排</td>
+<td>鎌倉</td>
+<td>尚未討論店家，見 <a href="#鎌倉">鎌倉</a></td>
+</tr>
+<tr>
+<td>約 19:00</td>
+<td>東京車站買艾許奶油餅乾</td>
+<td>見 <a href="#丸之內東京車站">丸之內・東京車站</a></td>
+</tr>
+<tr>
+<td>待排</td>
+<td>晚餐</td>
+<td>L'AS 為候選（原資料標 maybe），與 8/22、8/26 擇一</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="826三">8/26（三）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>時間</th>
+<th>事項</th>
+<th>細節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>待排</td>
+<td>午餐</td>
+<td>二選一，見 <a href="#826-決策點午餐">8/26 決策點：午餐</a></td>
+</tr>
+<tr>
+<td>待排</td>
+<td>下午逛街</td>
+<td>銀座 或 南青山</td>
+</tr>
+<tr>
+<td>待排</td>
+<td>晚餐</td>
+<td>L'AS 為候選（原資料標 maybe），與 8/22、8/25 擇一</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="826-決策點午餐">8/26 決策點：午餐</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>選項</th>
+<th>觸發條件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>優先</td>
+<td>國立新美術館（六本木）</td>
+<td><strong>不能訂位</strong>，要現場排</td>
+</tr>
+<tr>
+<td>備份</td>
+<td>Paris Marche</td>
+<td>Jing 推薦。飯店搭車約 30 分，原資料註明有點遠、SY 不太想特地跑一趟。選這個的話之後可順道草間彌生美術館</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="827四">8/27（四）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>時間</th>
+<th>事項</th>
+<th>細節</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>待排</td>
+<td>Pain Masion 買波羅鹽可頌</td>
+<td>飯店走 9 分</td>
+</tr>
+<tr>
+<td>待排</td>
+<td>BONGEN COFFEE Ginza</td>
+<td>離 Pain Masion 走 1 分</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="銀座東銀座">銀座・東銀座</h2>
+<h3 id="餐廳">餐廳</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品項</th>
+<th>店家</th>
+<th>位置</th>
+<th>可久坐</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>鰻魚飯</td>
+<td>備長(binchou) 三越</td>
+<td>銀座三越新館 11F</td>
+<td>✅</td>
+<td>待安排</td>
+<td>17:00 開。<strong>媽媽想吃</strong>。8/21 晚餐二選一</td>
+</tr>
+<tr>
+<td>烏龍麵</td>
+<td>佐藤養助(satou-yousuke) 銀座</td>
+<td>銀座</td>
+<td>✅</td>
+<td>待安排</td>
+<td>17:00 開。8/21 晚餐二選一</td>
+</tr>
+<tr>
+<td>壽司</td>
+<td>鮨よしかわ(sushi yoshikawa) 東銀座</td>
+<td>飯店走 3 分</td>
+<td>✅</td>
+<td>待安排</td>
+<td>14,300 円。原排 8/23 18:00，未訂位，可移其他天</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="咖啡甜點麵包">咖啡・甜點・麵包</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>店家</th>
+<th>位置</th>
+<th>可久坐</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tully's Coffee</td>
+<td>待確認</td>
+<td>—</td>
+<td>待安排</td>
+<td>8/21 check in 後買 Royal milk tea</td>
+</tr>
+<tr>
+<td>Pain Masion</td>
+<td>飯店走 9 分</td>
+<td>—</td>
+<td>待安排</td>
+<td>波羅鹽可頌。8/27 早上</td>
+</tr>
+<tr>
+<td>BONGEN COFFEE Ginza</td>
+<td>離 Pain Masion 走 1 分</td>
+<td>—</td>
+<td>待安排</td>
+<td>8/27，接在 Pain Masion 之後</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="購買">購買</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品項</th>
+<th>地點</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>水果</td>
+<td>待確認</td>
+<td>待安排</td>
+<td>8/21 晚餐後</td>
+</tr>
+<tr>
+<td>UNIQLO、MUJI</td>
+<td>銀座</td>
+<td>待安排</td>
+<td>8/21 晚餐後逛街</td>
+</tr>
+<tr>
+<td>銀座樂天免稅店</td>
+<td>銀座</td>
+<td>待安排</td>
+<td>日期未定</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="自由之丘">自由之丘</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>店家</th>
+<th>位置</th>
+<th>可久坐</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONIBUS COFFEE</td>
+<td>自由之丘</td>
+<td>—</td>
+<td>待安排</td>
+<td>8/22。原資料註明可整個 pass、專注中目黑</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="中目黑">中目黑</h2>
+<h3 id="餐廳_1">餐廳</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品項</th>
+<th>店家</th>
+<th>位置</th>
+<th>可久坐</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>黑輪（雞高湯）</td>
+<td>左門(samon)</td>
+<td>中目黑</td>
+<td>—</td>
+<td>待安排</td>
+<td>8/22</td>
+</tr>
+<tr>
+<td>壽司</td>
+<td>鮨よしかわ 中目黑</td>
+<td>中目黑</td>
+<td>—</td>
+<td>待安排</td>
+<td>14,300 円。日期未定，與另兩家擇一</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="咖啡甜點">咖啡・甜點</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>店家</th>
+<th>位置</th>
+<th>可久坐</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONIBUS COFFEE</td>
+<td>中目黑</td>
+<td>—</td>
+<td>待安排</td>
+<td>8/22</td>
+</tr>
+<tr>
+<td>Green bean to bar CHOCOLATE</td>
+<td>中目黑</td>
+<td>—</td>
+<td>待安排</td>
+<td>甜點</td>
+</tr>
+<tr>
+<td>JOHANN</td>
+<td>中目黑</td>
+<td>—</td>
+<td>待安排</td>
+<td>起司蛋糕</td>
+</tr>
+<tr>
+<td>Princess Tart</td>
+<td>中目黑</td>
+<td>—</td>
+<td>待安排</td>
+<td>水蜜桃甜點</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="購買_1">購買</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品項</th>
+<th>地點</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>福砂屋(fukusaya) 目黒店</td>
+<td>目黑【歸類待確認】</td>
+<td>待安排</td>
+<td>原資料列在中目黑那一段</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="代官山">代官山</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>店家</th>
+<th>位置</th>
+<th>可久坐</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PAYSAGE</td>
+<td>代官山</td>
+<td>—</td>
+<td>待安排</td>
+<td>水蜜桃甜點</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="購買_2">購買</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品項</th>
+<th>地點</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NUMBER SUGAR</td>
+<td>代官山</td>
+<td>待安排</td>
+<td>手工牛奶糖。貓街也有</td>
+</tr>
+<tr>
+<td>TAMBURINS</td>
+<td>代官山</td>
+<td>待安排</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="表參道南青山">表參道・南青山</h2>
+<p>含貓街（Cat Street）。</p>
+<h3 id="餐廳_2">餐廳</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品項</th>
+<th>店家</th>
+<th>位置</th>
+<th>可久坐</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>法式</td>
+<td>Prés de L'AS</td>
+<td>待確認，飯店搭電車約 30 分</td>
+<td>✅</td>
+<td>已安排</td>
+<td><strong>8/24 13:00，已訂位，不能動</strong></td>
+</tr>
+<tr>
+<td>法式</td>
+<td>L'AS</td>
+<td>南青山，飯店搭電車約 30 分</td>
+<td>✅</td>
+<td>待安排</td>
+<td>8/22 12:00 午餐，<strong>尚未訂位</strong>。8/25、8/26 晚餐也是候選，需擇一</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="咖啡甜點_1">咖啡・甜點</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>店家</th>
+<th>位置</th>
+<th>可久坐</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fuglen</td>
+<td>待確認</td>
+<td>—</td>
+<td>待安排</td>
+<td>8/24 午餐後候選。原資料註明會不順路，不一定要去</td>
+</tr>
+<tr>
+<td>Lotus cafe</td>
+<td>貓街</td>
+<td>—</td>
+<td>待安排</td>
+<td>水蜜桃甜點</td>
+</tr>
+<tr>
+<td>貓街其他咖啡廳</td>
+<td>貓街</td>
+<td>—</td>
+<td>待安排</td>
+<td>原資料只寫「有很多」，未指定店家</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="購買_3">購買</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品項</th>
+<th>地點</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NUMBER SUGAR</td>
+<td>貓街</td>
+<td>待安排</td>
+<td>手工牛奶糖。代官山也有</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="六本木">六本木</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品項</th>
+<th>店家</th>
+<th>位置</th>
+<th>可久坐</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>午餐</td>
+<td>國立新美術館</td>
+<td>六本木【歸類待確認】</td>
+<td>✅</td>
+<td>待安排</td>
+<td>8/26 候選，<strong>不能訂位</strong></td>
+</tr>
+<tr>
+<td>壽司</td>
+<td>鮨よしかわ 新 -ARATA-</td>
+<td>六本木</td>
+<td>—</td>
+<td>待安排</td>
+<td>13,200 円。日期未定，與另兩家擇一</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="澀谷">澀谷</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>店家</th>
+<th>位置</th>
+<th>可久坐</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tas Yard</td>
+<td>澀谷</td>
+<td>—</td>
+<td>待安排</td>
+<td>法式吐司。原資料註明有點遠，日期未定</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="丸之內東京車站">丸之內・東京車站</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品項</th>
+<th>地點</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>艾許(Échiré)奶油餅乾</td>
+<td>丸之內紅磚廣場（原資料：比東京車站近）</td>
+<td>待安排</td>
+<td>8/25 約 19:00 從鎌倉回來時買</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="吉祥寺">吉祥寺</h2>
+<p>8/23 暫定。原資料只有地名，無店家，待討論。</p>
+<h2 id="鎌倉">鎌倉</h2>
+<p>8/25。原資料只有地名，無店家，待討論。</p>
+<h2 id="地點待確認">地點待確認</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>店家／景點</th>
+<th>位置</th>
+<th>可久坐</th>
+<th>狀態</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paris Marche</td>
+<td>待確認，飯店搭車約 30 分</td>
+<td>—</td>
+<td>待安排</td>
+<td>Jing 推薦。8/26 與國立新美術館二選一</td>
+</tr>
+<tr>
+<td>草間彌生美術館</td>
+<td>待確認</td>
+<td>—</td>
+<td>待安排</td>
+<td>若 8/26 選 Paris Marche，可順道</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="額外資訊">額外資訊</h2>
+<p><strong>待確認</strong></p>
+<ul>
+<li>8/23 吉祥寺、8/25 鎌倉的店家尚未討論</li>
+<li>8/27 以 Google Doc 開頭兩條為準（Pain Masion ＋ BONGEN、Tas Yard）。文件尾端讀取被截斷，若還有其他項目要補</li>
+<li>鮨よしかわ 三家分店（東銀座 14,300、中目黑 14,300、六本木 ARATA 13,200）擇一，日期未定</li>
+<li>L'AS 在 8/22 午餐、8/25 晚餐、8/26 晚餐重複出現，需擇定</li>
+<li>全部候選的營業時間、LO、公休日皆未查</li>
+<li>可久坐欄大多未填，等各區選定後再一併查</li>
+<li>Tully's Coffee、Fuglen、Paris Marche、草間彌生美術館、Prés de L'AS 的分店與位置未寫</li>
+<li>8/21 之後住哪、住到哪一天</li>
+</ul>
+</div>
+<button id="to-top" aria-label="回到頂部" title="回到頂部">↑</button>
+<script>
+(function(){
+  var btn=document.getElementById('to-top');
+  function t(){ if(window.scrollY>window.innerHeight) btn.classList.add('show'); else btn.classList.remove('show'); }
+  window.addEventListener('scroll',t,{passive:true});
+  window.addEventListener('resize',t,{passive:true});
+  btn.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+  t();
+})();
+/* 第二凍結欄的 left 偏移：跟著第一欄實際寬度走，避免寫死 48px 壓縮內容 */
+(function(){
+  function syncFrozen(){
+    document.querySelectorAll('.table-wrap table').forEach(function(tb){
+      var head=tb.querySelector('tr > *:first-child');
+      if(!head) return;
+      var w=Math.ceil(head.getBoundingClientRect().width);
+      tb.querySelectorAll('tr > *:nth-child(2)').forEach(function(c){ c.style.left=w+'px'; });
+    });
+  }
+  syncFrozen();
+  window.addEventListener('resize',syncFrozen,{passive:true});
+  window.addEventListener('load',syncFrozen);
+})();
+</script>
+</body>
+</html>
